@@ -11,7 +11,7 @@ const data = {
     },
     {
       name: 'TUP Lanyard',
-      slug: 'tup-Lanyard',
+      slug: 'tup-lanyard',
       category: 'Lanyard',
       image: '/images/p2.jpg',
       price: '100',
