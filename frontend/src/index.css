@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap'); /* Imported Font Style */
 
 body {
   margin: 0;
@@ -7,19 +7,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-header {
-  background-color: #820000;
-  padding: 1rem;
-}
-header a {
-  color: #ffffff;
-  font-weight: bold;
-  text-decoration: none;
+.site-container {
+  min-height: 100vh;
 }
 
-main {
-  padding: 1rem;
+/* Navbar */
+
+.navbar-color {
+  background-color: #820000;
 }
+
+/* Main */
+
+main {
+  flex: 1;
+}
+
+/* Product Card Alignment */
 
 .products {
   display: flex;
@@ -27,15 +31,27 @@ main {
   justify-content: center;
 }
 
+/* Product Card */
+
 .product {
-  border: 1px #404040 solid;
+  border: 1px #820000 solid;
   margin: 1rem;
 }
 .product img {
   width: 100%;
-  max-width: 280px;
+  max-width: 350px;
 }
+
+/* Product Card Info */
 
 .product-info {
   padding: 1rem;
+}
+
+/* Footer */
+
+footer {
+  background-color: #820000;
+  color: #ffffff;
+  padding: 0.5rem;
 }
