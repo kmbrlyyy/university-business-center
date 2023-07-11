@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap'); /* Imported Font Style */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap'); /* Imported Font Style */
 
 body {
   margin: 0;
@@ -23,30 +23,53 @@ main {
   flex: 1;
 }
 
-/* Product Card Alignment */
+/* Button */
 
-.products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.btn {
+  background-color: #820000;
+  color: #ffffff;
+  border: none;
+}
+.btn:hover {
+  background-color: #ffffff;
+  color: #820000;
+  border: 0.3px #820000 solid;
 }
 
 /* Product Card */
 
-.product {
+.product-card {
+  border: 1px #820000 solid;
+}
+.product-card-title {
+  text-decoration: none;
+  color: #212529;
+}
+
+/* Product Card Alignment */
+
+/* .products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+} */
+
+/* Product Card */
+
+/* .product {
   border: 1px #820000 solid;
   margin: 1rem;
 }
 .product img {
   width: 100%;
   max-width: 350px;
-}
+} */
 
 /* Product Card Info */
 
-.product-info {
+/* .product-info {
   padding: 1rem;
-}
+} */
 
 /* Footer */
 
