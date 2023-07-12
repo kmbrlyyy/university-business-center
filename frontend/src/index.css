@@ -29,11 +29,18 @@ main {
   background-color: #820000;
   color: #ffffff;
   border: none;
+  --bs-btn-active-bg: #ffffff;
+  --bs-btn-active-border-color: #820000;
+  --bs-btn-active-color: #820000;
 }
 .btn:hover {
   background-color: #ffffff;
   color: #820000;
   border: 0.3px #820000 solid;
+}
+.btn:disabled {
+  background-color: #820000;
+  color: #ffffff;
 }
 
 /* Product Card Alignment */
@@ -58,6 +65,30 @@ main {
 
 .img-large {
   max-width: 100%;
+}
+
+/* Cart Page Image */
+
+.img-thumbnail {
+  height: 80px;
+}
+
+/* Cart Page Item Name */
+
+.shopping-cart-item-name {
+  text-decoration: none;
+  color: #212529;
+}
+
+/* Cart Page Buttons */
+
+.shopping-cart-button {
+  background-color: #ffffff;
+  color: #820000;
+}
+.shopping-cart-button:disabled {
+  background-color: #ffffff;
+  color: #820000;
 }
 
 /* Product Card */
