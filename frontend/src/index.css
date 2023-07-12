@@ -91,6 +91,17 @@ main {
   color: #820000;
 }
 
+/* Sign-In Page */
+
+.small-container {
+  max-width: 600px;
+}
+
+.form-field:focus {
+  box-shadow: none;
+  border-color: #820000;
+}
+
 /* Product Card */
 
 /* .product {
