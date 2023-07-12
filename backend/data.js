@@ -1,6 +1,7 @@
 const data = {
   products: [
     {
+      _id: '1',
       name: 'TUP Shirt',
       slug: 'tup-shirt',
       category: 'Shirt',
@@ -10,6 +11,7 @@ const data = {
       description: 'Available in RED and WHITE.',
     },
     {
+      _id: '2',
       name: 'TUP Lanyard',
       slug: 'tup-lanyard',
       category: 'Lanyard',
@@ -19,21 +21,23 @@ const data = {
       description: 'Reversible with Rubber Patch.',
     },
     {
+      _id: '3',
       name: 'TUP Bag',
       slug: 'tup-bag',
       category: 'Bag',
       image: '/images/p3.jpg',
       price: '120',
       countInStock: '10',
-      description: 'Available in RED and WHITE.',
+      description: 'Available in WHITE only.',
     },
     {
+      _id: '4',
       name: 'TUP Pin',
       slug: 'tup-pin',
       category: 'Pin',
       image: '/images/p4.jpg',
       price: '120',
-      countInStock: '10',
+      countInStock: '0',
       description: 'TUP College of Science Pin.',
     },
   ],
