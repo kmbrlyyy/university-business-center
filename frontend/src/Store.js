@@ -7,6 +7,9 @@ const initialState = {
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null,
   cart: {
+    customerInfo: localStorage.getItem('customerInfo')
+      ? JSON.parse(localStorage.getItem('customerInfo'))
+      : {},
     cartItems: localStorage.getItem('cartItems')
       ? JSON.parse(localStorage.getItem('cartItems'))
       : [],
@@ -41,7 +44,23 @@ function reducer(state, action) {
       return { ...state, userInfo: action.payload };
     case 'USER_SIGNOUT':
       // user sign-out
-      return { ...state, userInfo: null };
+      return {
+        ...state,
+        userInfo: null,
+        cart: {
+          cartItems: [],
+          customerInfo: {},
+        },
+      };
+    case 'SAVE_CUSTOMER_INFORMATION':
+      // save customer information
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          customerInfo: action.payload,
+        },
+      };
     default:
       return state;
   }
