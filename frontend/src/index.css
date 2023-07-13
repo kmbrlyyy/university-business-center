@@ -113,6 +113,19 @@ main {
   color: #820000;
 }
 
+/* Edit Link (Place Order Tab) */
+
+.card-title-color {
+  color: #820000;
+  font-weight: bold;
+}
+
+.edit-link {
+  text-decoration: none;
+  color: #820000;
+  font-weight: bold;
+}
+
 /* Product Card */
 
 /* .product {
