@@ -7,6 +7,7 @@ import CartScreen from './screens/CartScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import InformationScreen from './screens/InformationScreen';
+import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -24,6 +25,7 @@ function App() {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
     localStorage.removeItem('customerInfo');
+    localStorage.removeItem('paymentMethod');
   };
 
   return (
@@ -82,6 +84,7 @@ function App() {
                 path="/customer-information"
                 element={<InformationScreen />}
               />
+              <Route path="/payment" element={<PaymentMethodScreen />}></Route>
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
