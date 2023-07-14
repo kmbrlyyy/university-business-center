@@ -96,7 +96,7 @@ export default function PlaceOrderScreen() {
                 <strong>Name:</strong> {cart.customerInfo.fullName} <br />
                 <strong>Contact Number:</strong>{' '}
                 {cart.customerInfo.contactNumber} <br />
-                <strong>Address: </strong> {cart.customerInfo.address},
+                <strong>Address: </strong> {cart.customerInfo.address}
               </Card.Text>
               <Link className="edit-link" to="/customer-information">
                 Edit
@@ -139,7 +139,7 @@ export default function PlaceOrderScreen() {
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>${item.price}</Col>
+                      <Col md={3}>P{item.price}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -153,7 +153,9 @@ export default function PlaceOrderScreen() {
         <Col md={4}>
           <Card>
             <Card.Body>
-              <Card.Title>Order Summary</Card.Title>
+              <Card.Title className="card-title-color">
+                Order Summary
+              </Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
