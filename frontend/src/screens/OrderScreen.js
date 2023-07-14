@@ -74,7 +74,7 @@ export default function OrderScreen() {
         <Col md={8}>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title className="card-title-color">
+              <Card.Title className="place-order-tab-item-name">
                 Customer Information
               </Card.Title>
               <Card.Text>
@@ -95,7 +95,9 @@ export default function OrderScreen() {
 
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title className="card-title-color">Payment</Card.Title>
+              <Card.Title className="place-order-tab-item-name">
+                Payment
+              </Card.Title>
               <Card.Text>
                 <strong>Method:</strong> {order.paymentMethod}
               </Card.Text>
@@ -111,7 +113,9 @@ export default function OrderScreen() {
 
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title className="card-title-color">Items</Card.Title>
+              <Card.Title className="place-order-tab-item-name">
+                Items
+              </Card.Title>
               <ListGroup variant="flush">
                 {order.orderItems.map((item) => (
                   <ListGroup.Item key={item._id}>
@@ -143,7 +147,7 @@ export default function OrderScreen() {
         <Col md={4}>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title className="card-title-color">
+              <Card.Title className="place-order-tab-item-name">
                 Order Summary
               </Card.Title>
               <ListGroup variant="flush">

@@ -51,13 +51,13 @@ function App() {
                 </Link>
                 {userInfo ? (
                   <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-                    <LinkContainer to="/profile">
+                    {/* <LinkContainer to="/profile">
                       <NavDropdown.Item>User Profile</NavDropdown.Item>
                     </LinkContainer>
                     <LinkContainer to="/orderhistory">
                       <NavDropdown.Item>Order History</NavDropdown.Item>
                     </LinkContainer>
-                    <NavDropdown.Divider />
+                    <NavDropdown.Divider /> */}
                     <Link
                       className="dropdown-item"
                       to="#signout"

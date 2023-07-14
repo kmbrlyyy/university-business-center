@@ -89,7 +89,7 @@ export default function PlaceOrderScreen() {
         <Col md={8}>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title className="card-title-color">
+              <Card.Title className="place-order-tab-item-name">
                 Customer Information
               </Card.Title>
               <Card.Text>
@@ -106,7 +106,9 @@ export default function PlaceOrderScreen() {
 
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title className="card-title-color">Payment</Card.Title>
+              <Card.Title className="place-order-tab-item-name">
+                Payment
+              </Card.Title>
               <Card.Text>
                 <strong>Method:</strong> {cart.paymentMethod}
               </Card.Text>
@@ -118,7 +120,9 @@ export default function PlaceOrderScreen() {
 
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title className="card-title-color">Items</Card.Title>
+              <Card.Title className="place-order-tab-item-name">
+                Items
+              </Card.Title>
               <ListGroup variant="flush">
                 {cart.cartItems.map((item) => (
                   <ListGroup.Item key={item._id}>
@@ -153,7 +157,7 @@ export default function PlaceOrderScreen() {
         <Col md={4}>
           <Card>
             <Card.Body>
-              <Card.Title className="card-title-color">
+              <Card.Title className="place-order-tab-item-name">
                 Order Summary
               </Card.Title>
               <ListGroup variant="flush">

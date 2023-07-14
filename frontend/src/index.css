@@ -113,13 +113,12 @@ main {
   color: #820000;
 }
 
-/* Edit Link (Place Order Tab) */
+/* Place Order Tab & Order Screen */
 
-.card-title-color {
+.place-order-tab-item-name {
   color: #820000;
   font-weight: bold;
 }
-
 .edit-link {
   text-decoration: none;
   color: #820000;
