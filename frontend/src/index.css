@@ -142,6 +142,17 @@ main {
   padding: 1rem;
 } */
 
+/* Dropdown Item */
+
+.dropdown-item:hover {
+  background-color: #ffffff;
+  color: #820000;
+}
+.dropdown-item {
+  --bs-dropdown-link-active-color: #ffffff;
+  --bs-dropdown-link-active-bg: #820000;
+}
+
 /* Footer */
 
 footer {

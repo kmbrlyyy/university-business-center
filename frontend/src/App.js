@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomeScreen from './screens/HomeScreen';
@@ -10,13 +12,12 @@ import InformationScreen from './screens/InformationScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Badge from 'react-bootstrap/Badge';
-import Container from 'react-bootstrap/Container';
-import { LinkContainer } from 'react-router-bootstrap';
-import { useContext } from 'react';
+
 import { Store } from './Store';
 
 function App() {
@@ -51,13 +52,17 @@ function App() {
                 </Link>
                 {userInfo ? (
                   <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-                    {/* <LinkContainer to="/profile">
-                      <NavDropdown.Item>User Profile</NavDropdown.Item>
+                    <LinkContainer to="/profile">
+                      <NavDropdown.Item className="dropdown-item">
+                        User Profile
+                      </NavDropdown.Item>
                     </LinkContainer>
                     <LinkContainer to="/orderhistory">
-                      <NavDropdown.Item>Order History</NavDropdown.Item>
+                      <NavDropdown.Item className="dropdown-item">
+                        Order History
+                      </NavDropdown.Item>
                     </LinkContainer>
-                    <NavDropdown.Divider /> */}
+                    <NavDropdown.Divider />
                     <Link
                       className="dropdown-item"
                       to="#signout"
