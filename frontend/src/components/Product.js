@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Store } from '../Store';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { Store } from '../Store';
 
 function Product(props) {
   const { product } = props;
@@ -17,7 +18,7 @@ function Product(props) {
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Sorry, product is out of stock.');
+      toast.error('Sorry, product is out of stock.');
       return;
     }
     ctxDispatch({
@@ -35,10 +36,10 @@ function Product(props) {
         <Link className="product-card-title" to={`/product/${product.slug}`}>
           <Card.Title>{product.name}</Card.Title>
         </Link>
-        <Card.Text>P{product.price}</Card.Text>
+        <Card.Text>₱{product.price}</Card.Text>
         {product.countInStock > 0 ? (
           <Button onClick={() => addToCartHandler(product)} variant="none">
-            Add to cart
+            Add to Cart
           </Button>
         ) : (
           <Button variant="none" disabled>

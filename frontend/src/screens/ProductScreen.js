@@ -1,17 +1,18 @@
 import axios from 'axios';
 import { useContext, useEffect, useReducer } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Badge from 'react-bootstrap/Badge';
-import Button from 'react-bootstrap/Button';
 import { Helmet } from 'react-helmet-async';
+import { toast } from 'react-toastify';
+import { Store } from '../Store';
+import { getError } from '../utils';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { getError } from '../utils';
-import { Store } from '../Store';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Card from 'react-bootstrap/Card';
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -28,9 +29,10 @@ const reducer = (state, action) => {
 
 function ProductScreen() {
   const navigate = useNavigate();
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart } = state;
   const params = useParams();
   const { slug } = params;
-
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
     loading: true,
@@ -50,14 +52,12 @@ function ProductScreen() {
     fetchData();
   }, [slug]);
 
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart } = state;
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${product._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Sorry, product is out of stock.');
+      toast.error('Sorry, product is out of stock.');
       return;
     }
     ctxDispatch({
@@ -81,6 +81,7 @@ function ProductScreen() {
             alt={product.name}
           ></img>
         </Col>
+
         <Col md={3}>
           <ListGroup variant="flush">
             <ListGroup.Item>
@@ -89,13 +90,14 @@ function ProductScreen() {
               </Helmet>
               <h1>{product.name}</h1>
             </ListGroup.Item>
-            <ListGroup.Item>Price : P{product.price}</ListGroup.Item>
+            <ListGroup.Item>Price: ₱{product.price}</ListGroup.Item>
             <ListGroup.Item>
               Description:
               <p>{product.description}</p>
             </ListGroup.Item>
           </ListGroup>
         </Col>
+
         <Col md={3}>
           <Card>
             <Card.Body>
@@ -103,7 +105,7 @@ function ProductScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
-                    <Col>P{product.price}</Col>
+                    <Col>₱{product.price}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -118,7 +120,6 @@ function ProductScreen() {
                     </Col>
                   </Row>
                 </ListGroup.Item>
-
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">

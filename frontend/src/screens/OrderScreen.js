@@ -1,16 +1,15 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useParams } from 'react-router-dom';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -20,19 +19,17 @@ function reducer(state, action) {
       return { ...state, loading: false, order: action.payload, error: '' };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
-
     default:
       return state;
   }
 }
+
 export default function OrderScreen() {
+  const navigate = useNavigate();
   const { state } = useContext(Store);
   const { userInfo } = state;
-
   const params = useParams();
   const { id: orderId } = params;
-  const navigate = useNavigate();
-
   const [{ loading, error, order }, dispatch] = useReducer(reducer, {
     loading: true,
     order: {},
@@ -51,7 +48,6 @@ export default function OrderScreen() {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
-
     if (!userInfo) {
       return navigate('/login');
     }
@@ -78,8 +74,8 @@ export default function OrderScreen() {
                 Customer Information
               </Card.Title>
               <Card.Text>
-                <strong>Name:</strong> {order.customerInfo.fullName} <br />
-                <strong>Contact Number:</strong>{' '}
+                <strong>Name: </strong> {order.customerInfo.fullName} <br />
+                <strong>Contact Number: </strong>
                 {order.customerInfo.contactNumber} <br />
                 <strong>Address: </strong> {order.customerInfo.address}
               </Card.Text>
@@ -99,7 +95,7 @@ export default function OrderScreen() {
                 Payment
               </Card.Title>
               <Card.Text>
-                <strong>Method:</strong> {order.paymentMethod}
+                <strong>Method: </strong> {order.paymentMethod}
               </Card.Text>
               {order.isPaid ? (
                 <MessageBox variant="success">
@@ -136,7 +132,7 @@ export default function OrderScreen() {
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>P{item.price}</Col>
+                      <Col md={3}>₱{item.price}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -154,7 +150,7 @@ export default function OrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>P{order.itemsPrice.toFixed(2)}</Col>
+                    <Col>₱{order.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -163,7 +159,7 @@ export default function OrderScreen() {
                       <strong> Order Total</strong>
                     </Col>
                     <Col>
-                      <Col>P{order.itemsPrice.toFixed(2)}</Col>
+                      <Col>₱{order.itemsPrice.toFixed(2)}</Col>
                     </Col>
                   </Row>
                 </ListGroup.Item>

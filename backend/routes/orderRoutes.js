@@ -4,6 +4,7 @@ import Order from '../models/orderModel.js';
 import { isAuth } from '../utils.js';
 
 const orderRouter = express.Router();
+
 orderRouter.post(
   '/',
   isAuth,
@@ -15,7 +16,6 @@ orderRouter.post(
       itemsPrice: req.body.itemsPrice,
       user: req.user._id,
     });
-
     const order = await newOrder.save();
     res.status(201).send({ message: 'New Order Created', order });
   })

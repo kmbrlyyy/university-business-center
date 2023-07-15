@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { useContext } from 'react';
-import { Store } from '../Store';
-import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { toast } from 'react-toastify';
+import { Store } from '../Store';
+import MessageBox from '../components/MessageBox';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import MessageBox from '../components/MessageBox';
 
 export default function CartScreen() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function CartScreen() {
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Sorry, product is out of stock.');
+      toast.error('Sorry, product is out of stock.');
       return;
     }
     ctxDispatch({
@@ -94,7 +95,7 @@ export default function CartScreen() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>P{item.price}</Col>
+                    <Col md={3}>₱{item.price}</Col>
                     <Col md={2}>
                       <Button
                         className="shopping-cart-button"
@@ -118,7 +119,7 @@ export default function CartScreen() {
                   <h3>
                     Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}
                     {''} {''}
-                    items) : P
+                    items) : ₱
                     {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                   </h3>
                 </ListGroup.Item>

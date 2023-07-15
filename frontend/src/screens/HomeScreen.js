@@ -1,13 +1,12 @@
-import { useEffect, useReducer } from 'react';
 import axios from 'axios';
-import logger from 'use-reducer-logger';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Product from '../components/Product';
+import { useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet-async';
+import logger from 'use-reducer-logger';
+import Product from '../components/Product';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-// import data from '../data';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -28,7 +27,7 @@ function HomeScreen() {
     loading: true,
     error: '',
   });
-  // const [products, setProducts] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
@@ -38,7 +37,6 @@ function HomeScreen() {
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: err.message });
       }
-      // setProducts(result.data);
     };
     fetchData();
   }, []);
@@ -49,7 +47,7 @@ function HomeScreen() {
         <title>TUP Business Center</title>
       </Helmet>
       <h1 className="my-3">Featured Products</h1>
-      <div className="products">
+      <div className="center-align">
         {loading ? (
           <LoadingBox />
         ) : error ? (
@@ -67,4 +65,5 @@ function HomeScreen() {
     </div>
   );
 }
+
 export default HomeScreen;

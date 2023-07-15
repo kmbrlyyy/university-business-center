@@ -1,17 +1,17 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { toast } from 'react-toastify';
+import { Store } from '../Store';
+import { getError } from '../utils';
+import LoadingBox from '../components/LoadingBox';
+import CheckoutSteps from '../components/CheckoutSteps';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { toast } from 'react-toastify';
-import { getError } from '../utils';
-import { Store } from '../Store';
-import CheckoutSteps from '../components/CheckoutSteps';
-import LoadingBox from '../components/LoadingBox';
+import Button from 'react-bootstrap/Button';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -28,15 +28,14 @@ const reducer = (state, action) => {
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
-
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart, userInfo } = state;
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
   });
 
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart, userInfo } = state;
-
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.2345 => 123.23
+
   cart.itemsPrice = round2(
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
   );
@@ -44,8 +43,7 @@ export default function PlaceOrderScreen() {
   const placeOrderHandler = async () => {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
-
-      const { data } = await Axios.post(
+      const { data } = await axios.post(
         '/api/orders',
         {
           orderItems: cart.cartItems,
@@ -93,8 +91,8 @@ export default function PlaceOrderScreen() {
                 Customer Information
               </Card.Title>
               <Card.Text>
-                <strong>Name:</strong> {cart.customerInfo.fullName} <br />
-                <strong>Contact Number:</strong>{' '}
+                <strong>Name: </strong> {cart.customerInfo.fullName} <br />
+                <strong>Contact Number: </strong>
                 {cart.customerInfo.contactNumber} <br />
                 <strong>Address: </strong> {cart.customerInfo.address}
               </Card.Text>
@@ -110,7 +108,7 @@ export default function PlaceOrderScreen() {
                 Payment
               </Card.Title>
               <Card.Text>
-                <strong>Method:</strong> {cart.paymentMethod}
+                <strong>Method: </strong> {cart.paymentMethod}
               </Card.Text>
               <Link className="edit-link" to="/payment">
                 Edit
@@ -143,7 +141,7 @@ export default function PlaceOrderScreen() {
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>P{item.price}</Col>
+                      <Col md={3}>₱{item.price}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -164,7 +162,7 @@ export default function PlaceOrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>P{cart.itemsPrice.toFixed(2)}</Col>
+                    <Col>₱{cart.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -173,7 +171,7 @@ export default function PlaceOrderScreen() {
                       <strong> Order Total</strong>
                     </Col>
                     <Col>
-                      <Col>P{cart.itemsPrice.toFixed(2)}</Col>
+                      <Col>₱{cart.itemsPrice.toFixed(2)}</Col>
                     </Col>
                   </Row>
                 </ListGroup.Item>
