@@ -63,13 +63,13 @@ function HomeScreen() {
                 <Link className="btn btn-lg" to="/admin/dashboard">
                   Dashboard
                 </Link>
-                <Link className="btn btn-lg" to="/admin/productlist">
+                <Link className="btn btn-lg" to="/admin/products">
                   Product List
                 </Link>
-                <Link className="btn btn-lg" to="/admin/orderlist">
+                <Link className="btn btn-lg" to="/admin/orders">
                   Order List
                 </Link>
-                <Link className="btn btn-lg" to="/admin/userlist">
+                <Link className="btn btn-lg" to="/admin/users">
                   User List
                 </Link>
               </div>
