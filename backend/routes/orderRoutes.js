@@ -115,6 +115,22 @@ orderRouter.delete(
 );
 
 orderRouter.put(
+  '/:id/receive',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      order.isReceived = true;
+      order.receivedAt = Date.now();
+      await order.save();
+      res.send({ message: 'Order Received' });
+    } else {
+      res.status(404).send({ message: 'Order Not Found' });
+    }
+  })
+);
+
+orderRouter.put(
   '/:id/pay',
   isAuth,
   expressAsyncHandler(async (req, res) => {

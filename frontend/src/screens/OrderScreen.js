@@ -12,6 +12,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -29,6 +30,18 @@ function reducer(state, action) {
       return { ...state, loadingPay: false };
     case 'PAY_RESET':
       return { ...state, loadingPay: false, successPay: false };
+    case 'RECEIVE_REQUEST':
+      return { ...state, loadingReceive: true };
+    case 'RECEIVE_SUCCESS':
+      return { ...state, loadingReceive: false, successReceive: true };
+    case 'RECEIVE_FAIL':
+      return { ...state, loadingReceive: false };
+    case 'RECEIVE_RESET':
+      return {
+        ...state,
+        loadingReceive: false,
+        successReceive: false,
+      };
     default:
       return state;
   }
@@ -40,14 +53,24 @@ export default function OrderScreen() {
   const { userInfo } = state;
   const params = useParams();
   const { id: orderId } = params;
-  const [{ loading, error, order, successPay, loadingPay }, dispatch] =
-    useReducer(reducer, {
-      loading: true,
-      order: {},
-      error: '',
-      successPay: false,
-      loadingPay: false,
-    });
+  const [
+    {
+      loading,
+      error,
+      order,
+      successPay,
+      loadingPay,
+      loadingReceive,
+      successReceive,
+    },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    order: {},
+    error: '',
+    successPay: false,
+    loadingPay: false,
+  });
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
@@ -103,10 +126,18 @@ export default function OrderScreen() {
     if (!userInfo) {
       return navigate('/login');
     }
-    if (!order._id || successPay || (order._id && order._id !== orderId)) {
+    if (
+      !order._id ||
+      successPay ||
+      successReceive ||
+      (order._id && order._id !== orderId)
+    ) {
       fetchOrder();
       if (successPay) {
         dispatch({ type: 'PAY_RESET' });
+      }
+      if (successReceive) {
+        dispatch({ type: 'RECEIVE_RESET' });
       }
     } else {
       const loadPaypalScript = async () => {
@@ -124,7 +155,33 @@ export default function OrderScreen() {
       };
       loadPaypalScript();
     }
-  }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
+  }, [
+    order,
+    userInfo,
+    orderId,
+    navigate,
+    paypalDispatch,
+    successPay,
+    successReceive,
+  ]);
+
+  async function receiveOrderHandler() {
+    try {
+      dispatch({ type: 'RECEIVE_REQUEST' });
+      const { data } = await axios.put(
+        `/api/orders/${order._id}/receive`,
+        {},
+        {
+          headers: { authorization: `Bearer ${userInfo.token}` },
+        }
+      );
+      dispatch({ type: 'RECEIVE_SUCCESS', payload: data });
+      toast.success('Order is Received');
+    } catch (err) {
+      toast.error(getError(err));
+      dispatch({ type: 'RECEIVE_FAIL' });
+    }
+  }
 
   return loading ? (
     <LoadingBox></LoadingBox>
@@ -247,6 +304,16 @@ export default function OrderScreen() {
                       </div>
                     )}
                     {loadingPay && <LoadingBox></LoadingBox>}
+                  </ListGroup.Item>
+                )}
+                {userInfo.isAdmin && order.isPaid && !order.isReceived && (
+                  <ListGroup.Item>
+                    {loadingReceive && <LoadingBox></LoadingBox>}
+                    <div className="d-grid">
+                      <Button type="button" onClick={receiveOrderHandler}>
+                        Order Received
+                      </Button>
+                    </div>
                   </ListGroup.Item>
                 )}
               </ListGroup>
