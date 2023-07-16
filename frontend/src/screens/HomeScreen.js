@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet-async';
 import logger from 'use-reducer-logger';
+import { Store } from '../Store';
 import Product from '../components/Product';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -22,6 +23,8 @@ const reducer = (state, action) => {
 };
 
 function HomeScreen() {
+  const { state } = useContext(Store);
+  const { userInfo } = state;
   const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
     products: [],
     loading: true,
@@ -46,20 +49,26 @@ function HomeScreen() {
       <Helmet>
         <title>TUP Business Center</title>
       </Helmet>
-      <h1 className="my-3">Featured Products</h1>
-      <div className="center-align">
+      <div>
         {loading ? (
           <LoadingBox />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
+        ) : userInfo && userInfo.isAdmin ? (
+          <div className="mt-3">Dashboard Screen</div>
         ) : (
-          <Row>
-            {products.map((product) => (
-              <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
-                <Product product={product}></Product>
-              </Col>
-            ))}
-          </Row>
+          <>
+            <h1 className="my-3">Featured Products</h1>
+            <div className="center-align">
+              <Row>
+                {products.map((product) => (
+                  <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
+                    <Product product={product}></Product>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          </>
         )}
       </div>
     </div>
