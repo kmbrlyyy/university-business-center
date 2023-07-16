@@ -9,6 +9,7 @@ import MessageBox from '../components/MessageBox';
 import Table from 'react-bootstrap/Table';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 
 const reducer = (state, action) => {
@@ -97,7 +98,7 @@ export default function ProductListScreen() {
         </Col>
         <Col className="col text-end">
           <div className="my-3">
-            <Button type="button" onClick={createHandler}>
+            <Button variant="none" type="button" onClick={createHandler}>
               Create Product
             </Button>
           </div>
@@ -117,6 +118,8 @@ export default function ProductListScreen() {
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
+                <th>AVAILABLE</th>
+                <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -126,6 +129,22 @@ export default function ProductListScreen() {
                   <td>{product.name}</td>
                   <td>{product.price}</td>
                   <td>{product.category}</td>
+                  <td>
+                    {product.countInStock > 0 ? (
+                      <Badge bg="success">In Stock</Badge>
+                    ) : (
+                      <Badge bg="danger">Out of Stock</Badge>
+                    )}
+                  </td>
+                  <td>
+                    <Button
+                      type="button"
+                      variant="none"
+                      onClick={() => navigate(`/admin/product/${product._id}`)}
+                    >
+                      Edit
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>
