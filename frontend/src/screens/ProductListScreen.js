@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
 import { Store } from '../Store';
 import { getError } from '../utils';
@@ -79,10 +80,9 @@ export default function ProductListScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/products/admin?page=${page} `, {
+        const { data } = await axios.get(`/api/products/admin?page=${page}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
-
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {}
     };
@@ -135,12 +135,15 @@ export default function ProductListScreen() {
 
   return (
     <div>
-      <Row>
+      <Helmet>
+        <title>Products</title>
+      </Helmet>
+      <Row className="my-3">
         <Col>
-          <h1 className="my-3">Products</h1>
+          <h1>Products</h1>
         </Col>
         <Col className="col text-end">
-          <div className="my-3">
+          <div>
             <Button variant="none" type="button" onClick={createHandler}>
               Create Product
             </Button>
