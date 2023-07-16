@@ -93,7 +93,9 @@ export default function SignUpScreen() {
           />
         </Form.Group>
         <div className="mb-3">
-          <Button type="submit">Sign Up</Button>
+          <Button variant="none" type="submit">
+            Sign Up
+          </Button>
         </div>
         <div className="mb-3">
           Already have an account?{' '}

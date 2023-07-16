@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useContext, useEffect, useReducer } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import logger from 'use-reducer-logger';
 import { Store } from '../Store';
@@ -55,7 +56,25 @@ function HomeScreen() {
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : userInfo && userInfo.isAdmin ? (
-          <div className="mt-3">Dashboard Screen</div>
+          <>
+            <h1 className="my-3">Admin</h1>
+            <div className="admin-homescreen">
+              <div className="d-grid gap-3">
+                <Link className="btn btn-lg" to="/admin/dashboard">
+                  Dashboard
+                </Link>
+                <Link className="btn btn-lg" to="/admin/productlist">
+                  Product List
+                </Link>
+                <Link className="btn btn-lg" to="/admin/orderlist">
+                  Order List
+                </Link>
+                <Link className="btn btn-lg" to="/admin/userlist">
+                  User List
+                </Link>
+              </div>
+            </div>
+          </>
         ) : (
           <>
             <h1 className="my-3">Featured Products</h1>

@@ -153,6 +153,12 @@ main {
   --bs-dropdown-link-active-bg: #820000;
 }
 
+.admin-homescreen {
+  display: grid;
+  place-items: center;
+  min-height: 60vh;
+}
+
 /* Footer */
 
 footer {
