@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
 import { Store } from '../Store';
@@ -59,7 +59,7 @@ export default function ProductListScreen() {
       loading,
       error,
       products,
-      pages,
+      // pages,
       loadingCreate,
       loadingDelete,
       successDelete,
@@ -204,7 +204,7 @@ export default function ProductListScreen() {
               ))}
             </tbody>
           </Table>
-          <div>
+          {/* <div>
             {[...Array(pages).keys()].map((x) => (
               <React.Fragment key={x + 1}>
                 <Link
@@ -215,7 +215,7 @@ export default function ProductListScreen() {
                 </Link>{' '}
               </React.Fragment>
             ))}
-          </div>
+          </div> */}
         </>
       )}
     </div>
