@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Store } from '../Store';
 import { getError } from '../utils';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import Button from 'react-bootstrap/Button';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -25,6 +27,7 @@ const reducer = (state, action) => {
 };
 
 export default function UserListScreen() {
+  const navigate = useNavigate();
   const [{ loading, error, users }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -79,7 +82,15 @@ export default function UserListScreen() {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.isAdmin ? 'YES' : 'NO'}</td>
-                <td></td>
+                <td>
+                  <Button
+                    type="button"
+                    variant="none"
+                    onClick={() => navigate(`/admin/user/${user._id}`)}
+                  >
+                    Edit
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>
